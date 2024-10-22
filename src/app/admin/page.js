@@ -42,7 +42,6 @@ const COLORS = ['#0088FE', '#00C49F'];
 export default function Dashboard() {
   return (
     <AdminLayout>
-
       <style jsx>{`
         h1 {
           font-size: 2rem;
@@ -149,20 +148,24 @@ export default function Dashboard() {
           display: flex;
           flex-direction: row;
         }
-        
+
         .box1 {
-          width: 20%;
+          overflow-y: auto;
+          max-height: 100vh;
         }
 
         .box2 {
+          margin-left: 20px;
           width: 80%;
+          overflow-y: auto;
+          max-height: 100vh;
         }
       `}</style>
       <div className="box">
-        <div className='box1'>
+        <div className="box1">
           <Sidebar />
         </div>
-        <div className='box2'>
+        <div className="box2">
           <h1>Welcome Super Admin</h1>
 
           <div className="card-grid">

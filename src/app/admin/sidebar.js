@@ -17,7 +17,7 @@ import {
 } from 'lucide-react';
 
 const menuItems = [
-  { icon: LayoutDashboard, label: 'Dashboard', href: '/' },
+  { icon: LayoutDashboard, label: 'Dashboard', href: '/admin' },
   { icon: Users, label: 'Superadmin', href: '/superadmin' },
   { label: 'Subscription Management', href: '#', isHeader: true },
   { icon: Building2, label: 'All Hospitals', href: '/hospitals' },
@@ -62,16 +62,38 @@ export default function Sidebar() {
   const pathname = usePathname();
   const router = useRouter();
 
+  const [isMenuOpen, setIsMenuOpen] = React.useState(true);
+
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
+  React.useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth <= 768) {
+        setIsMenuOpen(false);
+      }
+    };
+
+    handleResize(); // Set initial state based on window size
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
   return (
     <>
       <style jsx>{`
         .sidebar {
-          width: 250px;
+          width: ${isMenuOpen ? '250px' : '80px'};
           background-color: #f7f7f7;
           height: 100vh;
           display: flex;
           flex-direction: column;
           padding: 20px;
+          transition: width 0.3s ease;
         }
 
         .sidebar-header {
@@ -91,10 +113,12 @@ export default function Sidebar() {
           font-size: 18px;
           font-weight: bold;
           color: #333;
+          display: ${isMenuOpen ? 'block' : 'none'};
         }
 
         .sidebar-user {
           margin-bottom: 20px;
+          display: ${isMenuOpen ? 'block' : 'none'};
         }
 
         .sidebar-user-details {
@@ -113,6 +137,7 @@ export default function Sidebar() {
         .sidebar-nav {
           display: flex;
           flex-direction: column;
+          align-self: center;
         }
 
         .sidebar-nav-header {
@@ -122,12 +147,14 @@ export default function Sidebar() {
           color: #555;
           margin-top: 20px;
           margin-bottom: 10px;
+          display: ${isMenuOpen ? 'block' : 'none'};
         }
 
         .sidebar-nav-item {
           display: flex;
-          align-items: center;
-          padding: 10px 15px;
+          align-self: center;
+          padding: 10px;
+          border-radius: 5px;
           font-size: 16px;
           font-weight: normal;
           color: #333;
@@ -147,13 +174,32 @@ export default function Sidebar() {
         }
 
         .sidebar-nav-icon {
-          margin-right: 10px;
+          margin-right: ${isMenuOpen ? '10px' : '0'};
           width: 16px;
           height: 16px;
+        }
+
+        .hamburger-menu {
+          display: ${window.innerWidth <= 768 ? 'none' : 'flex'};
+          flex-direction: column;
+          cursor: pointer;
+          margin-right: 10px;
+        }
+
+        .hamburger-menu-line {
+          width: 20px;
+          height: 1.5px;
+          background-color: #333;
+          margin: 4px 0;
         }
       `}</style>
       <div className="sidebar">
         <div className="sidebar-header">
+          <div className="hamburger-menu" onClick={toggleMenu}>
+            <div className="hamburger-menu-line"></div>
+            <div className="hamburger-menu-line"></div>
+            <div className="hamburger-menu-line"></div>
+          </div>
           <div className="sidebar-logo">H</div>
           <span className="sidebar-title">Hospital</span>
         </div>
@@ -178,7 +224,7 @@ export default function Sidebar() {
                       : ''
                   }`}>
                   {item.icon && <item.icon className="sidebar-nav-icon" />}
-                  {item.label}
+                  {isMenuOpen && item.label}
                 </button>
               </Link>
             )
