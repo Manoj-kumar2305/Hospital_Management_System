@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import {
@@ -58,30 +58,37 @@ const menuItems = [
   },
 ];
 
-export default function Sidebar() {
-  const pathname = usePathname();
+export default function Sidebar({ initialMenuOpen = true }) {
   const router = useRouter();
+  const pathname = router.pathname;
 
-  const [isMenuOpen, setIsMenuOpen] = React.useState(true);
+  const [isMenuOpen, setIsMenuOpen] = useState(initialMenuOpen);
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth <= 768) {
         setIsMenuOpen(false);
       }
     };
 
-    handleResize(); // Set initial state based on window size
-    window.addEventListener('resize', handleResize);
+    if (isClient) {
+      handleResize();
+      window.addEventListener('resize', handleResize);
 
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
-  }, []);
+      return () => {
+        window.removeEventListener('resize', handleResize);
+      };
+    }
+  }, [isClient]);
 
   return (
     <>
@@ -180,7 +187,7 @@ export default function Sidebar() {
         }
 
         .hamburger-menu {
-          display: ${window.innerWidth <= 768 ? 'none' : 'flex'};
+          display: ${isClient && window.innerWidth <= 768 ? 'none' : 'flex'};
           flex-direction: column;
           cursor: pointer;
           margin-right: 10px;

@@ -1,5 +1,6 @@
 'use client';
-import React from 'react';
+
+import React, { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import {
   BarChart,
@@ -15,7 +16,7 @@ import {
   Legend,
 } from 'recharts';
 import AdminLayout from './layout';
-import Sidebar from './sidebar';
+import Sidebar from './Sidebar';
 
 const data = [
   { month: 'Jan', income: 100000 },
@@ -40,6 +41,14 @@ const pieData = [
 const COLORS = ['#0088FE', '#00C49F'];
 
 export default function Dashboard() {
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      setIsClient(true);
+    }
+  }, []);
+
   return (
     <AdminLayout>
       <style jsx>{`
@@ -207,52 +216,56 @@ export default function Dashboard() {
           </div>
 
           <div className="chart-grid">
-            <Card className="card">
-              <CardHeader className="card-header">
-                <CardTitle className="card-title">
-                  2024 Per Month Income / Expense
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="chart-container">
-                <ResponsiveContainer width="100%" height={300}>
-                  <BarChart data={data}>
-                    <CartesianGrid strokeDasharray="3 3" />
-                    <XAxis dataKey="month" />
-                    <YAxis />
-                    <Tooltip />
-                    <Bar dataKey="income" fill="#0088FE" />
-                  </BarChart>
-                </ResponsiveContainer>
-              </CardContent>
-            </Card>
+            {isClient && (
+              <>
+                <Card className="card">
+                  <CardHeader className="card-header">
+                    <CardTitle className="card-title">
+                      2024 Per Month Income / Expense
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="chart-container">
+                    <ResponsiveContainer width="100%" height={300}>
+                      <BarChart data={data}>
+                        <CartesianGrid strokeDasharray="3 3" />
+                        <XAxis dataKey="month" />
+                        <YAxis />
+                        <Tooltip />
+                        <Bar dataKey="income" fill="#0088FE" />
+                      </BarChart>
+                    </ResponsiveContainer>
+                  </CardContent>
+                </Card>
 
-            <Card className="card">
-              <CardHeader className="card-header">
-                <CardTitle className="card-title">October, 2024</CardTitle>
-              </CardHeader>
-              <CardContent className="chart-container">
-                <ResponsiveContainer width="100%" height={300}>
-                  <PieChart>
-                    <Pie
-                      data={pieData}
-                      cx="50%"
-                      cy="50%"
-                      labelLine={false}
-                      outerRadius={80}
-                      fill="#8884d8"
-                      dataKey="value">
-                      {pieData.map((entry, index) => (
-                        <Cell
-                          key={`cell-${index}`}
-                          fill={COLORS[index % COLORS.length]}
-                        />
-                      ))}
-                    </Pie>
-                    <Legend />
-                  </PieChart>
-                </ResponsiveContainer>
-              </CardContent>
-            </Card>
+                <Card className="card">
+                  <CardHeader className="card-header">
+                    <CardTitle className="card-title">October, 2024</CardTitle>
+                  </CardHeader>
+                  <CardContent className="chart-container">
+                    <ResponsiveContainer width="100%" height={300}>
+                      <PieChart>
+                        <Pie
+                          data={pieData}
+                          cx="50%"
+                          cy="50%"
+                          labelLine={false}
+                          outerRadius={80}
+                          fill="#8884d8"
+                          dataKey="value">
+                          {pieData.map((entry, index) => (
+                            <Cell
+                              key={`cell-${index}`}
+                              fill={COLORS[index % COLORS.length]}
+                            />
+                          ))}
+                        </Pie>
+                        <Legend />
+                      </PieChart>
+                    </ResponsiveContainer>
+                  </CardContent>
+                </Card>
+              </>
+            )}
           </div>
 
           <div className="footer-grid">
