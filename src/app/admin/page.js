@@ -254,7 +254,7 @@ export default function Dashboard() {
                           dataKey="value">
                           {pieData.map((entry, index) => (
                             <Cell
-                              key={`cell-${index}`}
+                              key={`cell-₹{index}`}
                               fill={COLORS[index % COLORS.length]}
                             />
                           ))}
@@ -277,11 +277,11 @@ export default function Dashboard() {
                   </CardHeader>
                   <CardContent className="space-y-2">
                     <p>
-                      Monthly Subscription: ${' '}
+                      Monthly Subscription: ₹{' '}
                       {index === 0 ? '0.00' : index === 1 ? '10.00K' : '10.08K'}
                     </p>
                     <p>
-                      Yearly Subscription: ${' '}
+                      Yearly Subscription: ₹{' '}
                       {index === 0
                         ? '0.00'
                         : index === 1
@@ -289,7 +289,7 @@ export default function Dashboard() {
                         : '400.00K'}
                     </p>
                     <p>
-                      Total Income: ${' '}
+                      Total Income: ₹{' '}
                       {index === 0
                         ? '0.00'
                         : index === 1
