@@ -131,7 +131,7 @@ export default function Dashboard() {
                   </CardTitle>
                 </CardHeader>
                 <CardContent className={styles.chartContainer}>
-                  <ResponsiveContainer width="100%" height={300}>
+                  <ResponsiveContainer width={300} height={300}>
                     <PieChart>
                       <Pie
                         data={pieData}
