@@ -1,0 +1,138 @@
+.sidebar {
+  background-color: #f7f7f7;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  transition: width 0.3s ease;
+}
+
+.sidebarHeader {
+  display: flex;
+  margin-bottom: 20px;
+}
+
+.hamburgerMenu {
+  flex-direction: column;
+  cursor: pointer;
+  margin-right: 10px;
+  align-self: center;
+}
+
+.hamburgerMenuLine {
+  width: 20px;
+  height: 1.5px;
+  background-color: #333;
+  margin: 4px 0;
+}
+
+.sidebarLogo {
+  font-size: 30px;
+  font-weight: bold;
+  color: #333;
+}
+
+.sidebarTitle {
+  font-size: 14px;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: #555;
+  align-self: center;
+}
+
+.sidebarUser {
+  margin-bottom: 20px;
+}
+
+.sidebarNav {
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+  margin: 5px;
+  
+}
+
+.sidebarNavItem {
+  display: flex;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  align-self: center;
+  border-radius: 5px;
+  font-size: 16px;
+  font-weight: normal;
+  color: #333;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.sidebarNavItem:hover {
+  background-color: #e0e0e0;
+}
+
+.sidebarNavItemActive {
+  background-color: #007bff;
+  color: white;
+}
+
+.sidebarNavIcon {
+  margin-right: 10px;
+}
+
+.sidebarUserDetails {
+  display: flex;
+  align-items: center;
+}
+
+.sidebarUserAvatar {
+  width: 40px;
+  height: 40px;
+  background-color: #ccc;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.sidebarClosed {
+  width: 60px;
+  .sidebarTitle {
+    display: none;
+  }
+  .sidebarNavItemText {
+    display: none;
+  }
+  .sidebarNavItem {
+    justify-content: center;
+  }
+  .sidebarNavIcon {
+    margin-right: 0;
+  }
+  .sidebarUser {
+    display: none;
+  }
+  .sidebarNavHeader {
+    display: none;
+  }
+  .sidebarNavItemActive {
+    background-color: #007bff;
+    color: white;
+  }
+  .sidebarUserAvatar {
+    margin-right: 0;
+  }
+  .sidebarLogo{
+    display: none;
+  }
+}
+
+.sidebarOpen {
+  width: 250px;
+}
+
+.sidebarNavItemText {
+  display: none;
+}
+
+.sidebarOpen .sidebarNavItemText {
+  display: inline;
+}

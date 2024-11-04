@@ -1,0 +1,62 @@
+.box {
+  display: flex;
+  justify-items: baseline;
+}
+
+.box2 {
+  min-width: 80%;
+  margin: 5px;
+}
+
+.cardGrid {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  margin: 5px;
+}
+
+.card {
+  width: 100%;
+  padding: 15px;
+  margin: 3px;
+  border-radius: 3px;
+}
+
+.bgGreen {
+  background-color: #01f878;
+}
+
+.bgGray {
+  background-color: grey;
+}
+
+.bgCyan {
+  background-color: #00bcd4;
+}
+
+.bgRed {
+  background-color: red;
+}
+
+.chartGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  margin: 3px;
+
+  @media (min-width: 1024px) {
+    grid-template-columns: 2fr 1fr;
+  }
+}
+
+.footerGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  margin-top: 2rem;
+
+  @media (min-width: 768px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
